@@ -25,12 +25,6 @@ def login_view(request):
 
 
 @api_view(['POST'])
-def logout_view(request):
-    logout(request)
-    return Response({"detail": "Successfully logged out."})
-
-
-@api_view(['POST'])
 @authentication_classes([JWTAuthentication])
 @permission_classes([IsAuthenticated])
 def create_account(request):
@@ -88,7 +82,8 @@ def transaction_list(request):
     """
     List all transactions across all accounts.
     """
-    transactions = Transaction.objects.all()
+    user_accounts = request.user.accounts.all()
+    transactions = Transaction.objects.filter(account__in=user_accounts)
     serializer = TransactionSerializer(transactions, many=True)
     return Response(serializer.data)
 

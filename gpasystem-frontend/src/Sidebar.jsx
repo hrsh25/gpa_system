@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Button, Typography, Divider } from '@mui/material';
 import { NavLink as RouterNavLink, useRouteMatch } from 'react-router-dom';
 import { styled } from '@mui/system';
+import { useAuth } from './AuthContext';
 
 const NavLink = styled(RouterNavLink)(({ theme }) => ({
   textDecoration: 'none',
@@ -15,14 +16,15 @@ const NavLink = styled(RouterNavLink)(({ theme }) => ({
   }
 }));
 
-const Sidebar = ({ username }) => {
-  // Using useRouteMatch to highlight the button based on the current path
+const Sidebar = () => {
+  const { user } = useAuth();
   const isAccountsActive = !!useRouteMatch({ path: '/', exact: true });
   const isTransactionsActive = !!useRouteMatch('/all-transactions');
+
   return (
     <Box sx={{ width: 240, height: '100vh', borderRight: '1px solid #ddd', padding: 2 }}>
       <Typography variant="h6" sx={{ marginBottom: 2 }}>
-        Hi, {username}!
+        Hi, {user}!
       </Typography>
       <Divider sx={{ marginBottom: 2 }} />
       <Button component={NavLink} to="/" exact fullWidth sx={{

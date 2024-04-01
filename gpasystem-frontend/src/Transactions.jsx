@@ -3,17 +3,19 @@ import axios from 'axios';
 import { Box } from '@mui/material';
 import Sidebar from './Sidebar';
 import TransactionList from './TransactionList';
+import { useAuth } from './AuthContext';
 
-const TransactionsComponent = ({ authToken, username }) => {
+const TransactionsComponent = () => {
   const [transactions, setTransactions] = useState([]);
+  const { token } = useAuth();
 
   useEffect(() => {
     const fetchTransactions = async () => {
       try {
         const response = await axios.get('http://localhost:8000/all-transactions/', {
-            headers: {
-                Authorization: `Bearer ${authToken.access}`,
-              },
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         });
         setTransactions(response.data);
       } catch (error) {
@@ -21,18 +23,17 @@ const TransactionsComponent = ({ authToken, username }) => {
       }
     };
 
-    if (authToken) {
+    if (token) {
       fetchTransactions();
     }
-  }, [authToken]);
+  }, [token]);
 
   return (
     <Box sx={{ display: 'flex' }}>
-        <Sidebar username={username} onNavigate={(view) => console.log(`Navigate to: ${view}`)} />
+        <Sidebar />
         <TransactionList transactions={transactions}></TransactionList>
     </Box>
   );
-
 };
 
 export default TransactionsComponent;

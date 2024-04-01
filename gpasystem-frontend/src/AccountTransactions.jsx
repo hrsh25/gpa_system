@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import AuthContext from './AuthContext';
+import { useAuth } from './AuthContext';
 import { useParams } from 'react-router-dom';
 import { Box } from '@mui/material';
-import { useContext } from 'react';
 import Sidebar from './Sidebar';
 import TransactionList from './TransactionList';
 
-const AccountTransactionsComponent = ({username}) => {
+const AccountTransactionsComponent = () => {
   const [transactions, setTransactions] = useState([]);
   const { accountId } = useParams();
-  const { authToken } = useContext(AuthContext);
+  const { token } = useAuth();
+
   useEffect(() => {
     const fetchTransactions = async () => {
       try {
         const response = await axios.get(`http://localhost:8000/transactions/${accountId}/`, {
           headers: {
-            Authorization: `Bearer ${authToken.access}`,
+            Authorization: `Bearer ${token}`,
           },
         });
         setTransactions(response.data);
@@ -25,14 +25,14 @@ const AccountTransactionsComponent = ({username}) => {
       }
     };
 
-    if (authToken) {
+    if (token) {
       fetchTransactions();
     }
-  }, [authToken, accountId]);
+  }, [token, accountId]);
 
   return (
     <Box sx={{ display: 'flex' }}>
-      <Sidebar username={username}/>
+      <Sidebar/>
       <TransactionList transactions={transactions}/>
     </Box>
   );

@@ -2,16 +2,18 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Box, Card, CardContent, Typography, Button } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { useAuth } from './AuthContext';
 
-const AccountComponent = ({authToken}) => {
+const AccountComponent = () => {
     const [accounts, setAccounts] = useState([]);
+    const { token } = useAuth();
 
     useEffect(() => {
         const fetchAccounts = async () => {
         try {
             const response = await axios.get('http://localhost:8000/accounts/', {
             headers: {
-                Authorization: `Bearer ${authToken.access}`,
+                Authorization: `Bearer ${token}`,
             },
             });
             setAccounts(response.data);
@@ -20,10 +22,10 @@ const AccountComponent = ({authToken}) => {
         }
         };
 
-        if (authToken) {
-        fetchAccounts();
+        if (token) {
+            fetchAccounts();
         }
-    }, [authToken]);
+    }, [token]);
 
     const formatAccountNumber = (accountNumber) => {
         return accountNumber.replace(/(.{4})/g, '$1 ');

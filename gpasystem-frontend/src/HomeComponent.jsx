@@ -3,11 +3,11 @@ import { Box } from '@mui/material';
 import Sidebar from './Sidebar';
 import AccountComponent from './Accounts';
 
-const HomeComponent = ({ authToken, username }) => {
+const HomeComponent = () => {
   return (
     <Box sx={{ display: 'flex' }}>
-      <Sidebar username={username}/>
-      <AccountComponent authToken={authToken}/>
+      <Sidebar/>
+      <AccountComponent/>
     </Box>
   );
 };

@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { TextField, Button, Paper, Typography, Container } from '@mui/material';
 import { makeStyles } from '@mui/styles';
+import { useAuth } from './AuthContext';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -25,10 +27,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const LoginPage = ({ onLoginSuccess }) => {
+const LoginPage = () => {
   const classes = useStyles();
+  const history = useHistory();
   const [credentials, setCredentials] = useState({ username: '', password: '' });
   const [error, setError] = useState('');
+  const { login } = useAuth();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -40,10 +44,11 @@ const LoginPage = ({ onLoginSuccess }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setError(''); // Clear any previous errors
+    setError('');
     try {
       const response = await axios.post('http://localhost:8000/api/token/', credentials);
-      onLoginSuccess(response.data, credentials.username);
+      login(credentials.username, response.data);
+      history.push('/');
     } catch (error) {
       setError('Invalid username or password.');
     }
@@ -53,7 +58,7 @@ const LoginPage = ({ onLoginSuccess }) => {
     <Container component="main" maxWidth="xs" className={classes.container}>
       <Paper className={classes.paper} elevation={3}>
         <Typography component="h1" variant="h5">
-          GPA
+          Sign In
         </Typography>
         <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <TextField

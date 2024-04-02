@@ -1,4 +1,44 @@
-# General Purpose Accounting System
+# General Purpose Accounting System (Finally Take Home assessment)
+
+## Images:
+### Login Screen:
+![Screenshot 2024-04-02 at 12 00 01 AM](https://github.com/hrsh25/gpa_system/assets/29095913/c5013018-20de-455b-b9b1-08a5559ee91c)
+
+### Home:
+![Screenshot 2024-04-02 at 12 00 29 AM](https://github.com/hrsh25/gpa_system/assets/29095913/2dc83d88-3655-4bc7-a697-03348a5da626)
+
+### All Transactions:
+![Screenshot 2024-04-02 at 12 00 38 AM](https://github.com/hrsh25/gpa_system/assets/29095913/b000c40f-0ef0-48e4-bcd7-31c7daf06c72)
+
+### Transaction by Account:
+![Screenshot 2024-04-02 at 12 00 54 AM](https://github.com/hrsh25/gpa_system/assets/29095913/ba9a3b67-09b4-4fee-a44a-8de92151ab9b)
+
+
+## Technology Stack
+
+- **Backend**: Django Rest Framework for the API.
+- **Frontend**: React for the UI, Material-UI for design components.
+- **Database**: PostgreSQL.
+- **Authentication**: Django's built-in authentication system with JWT for secure access.
+
+## Features:
+
+### Frontend:
+- Login Functionality.
+- User can view accounts.
+- User can view all transactions.
+- User can view transactions by account.
+
+### Backend:
+- Rest APIs for the following:
+  - Create Account
+  - Get all Accounts
+  - Create Transaction
+  - Get all Transactions
+  - Get Transaction by account.
+  - Get Transaction by Date
+
+##Setup:
 
 ### Backend Setup
 

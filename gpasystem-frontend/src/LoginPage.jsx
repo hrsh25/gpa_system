@@ -67,7 +67,7 @@ const LoginPage = () => {
             required
             fullWidth
             id="username"
-            label="Email Address / Username"
+            label="Username"
             name="username"
             autoComplete="username"
             autoFocus
